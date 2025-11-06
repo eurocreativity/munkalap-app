@@ -34,6 +34,22 @@ git commit -m "Initial commit: Munkalap App - teljes funkcionalitással"
 
 ## 4. GitHub-ra Feltöltés
 
+### Egyszerű módszer (ajánlott):
+
+**PowerShell script:**
+```powershell
+.\push_to_github.ps1
+```
+
+**Vagy Batch fájl:**
+```cmd
+push_to_github.bat
+```
+
+A script megkérdezi a GitHub repository URL-t, majd automatikusan feltölti.
+
+### Manuális módszer:
+
 A GitHub meg fogja mutatni a parancsokat. Használd ezeket:
 
 ```bash
