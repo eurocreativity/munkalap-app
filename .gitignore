@@ -1,0 +1,41 @@
+# XAMPP / PHP
+*.log
+*.tmp
+*.cache
+php_error_log
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Composer
+/vendor/
+composer.lock
+
+# Ideiglenes fájlok
+/tmp/
+/logs/
+*.pdf
+
+# Adatbázis exportok
+*.sql
+*.sqlite
+*.db
+
+# Konfigurációs fájlok (ha tartalmaznak érzékeny adatokat)
+# config.local.php
+
+# TCPDF cache
+/vendor/tecnickcom/tcpdf/cache/
+
+# Email logok (opcionális - ha nem akarod commitolni)
+# /logs/
+
