@@ -49,6 +49,12 @@
       "description": "Agent koordináció és workflow menedzsment",
       "capabilities": ["coordination", "task-scheduling", "reporting", "integration"],
       "mcp_servers": ["github", "playwright"]
+    },
+    "git-sync": {
+      "name": "Git Sync Agent",
+      "description": "Git repository monitorozás, commit és merge kezelés",
+      "capabilities": ["git-monitoring", "auto-commit", "branch-management", "merge-on-demand"],
+      "mcp_servers": ["github"]
     }
   },
   "workflow": {

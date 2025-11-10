@@ -90,6 +90,25 @@ Ez a dokumentáció az automatikus fejlesztési ügynök rendszert írja le, ame
 
 ---
 
+### 7. Git Sync Agent (`/git-sync`)
+**Felelősség**: Git repository monitorozás, commit és merge kezelés
+
+**Feladatok**:
+- Development branch fájlok figyelése (watch mode)
+- Automatikus commits generálása
+- Branch szinkronizáció
+- Main branch-be merge-olés (kérésre)
+- Napi aktivitási riportok készítése
+- Konfliktusok detektálása és jelzése
+
+**Működési Módok**:
+- **Watch Mode** (alapértelmezett) - Automatikus commit és push
+- **Manual Mode** - Kérésedre merge-ol main-be
+
+**MCP Integráció**: GitHub
+
+---
+
 ## Automatikus Workflow
 
 Az ügynökök az alábbi sorrendben működnek:

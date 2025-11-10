@@ -57,6 +57,21 @@ agents:
       - github
       - playwright
 
+  git-sync:
+    enabled: true
+    description: "Git repository szinkronizáció és monitoring"
+    auto_start: true
+    dependencies: []
+    mcp_servers:
+      - github
+    config:
+      watch_mode: true
+      watch_interval: 300 # seconds
+      auto_commit: true
+      development_branch: "development"
+      main_branch: "main"
+      merge_on_demand: true
+
 # Global settings
 global:
   log_level: "info"
