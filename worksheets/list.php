@@ -204,22 +204,55 @@ $user = getCurrentUser();
                                         </td>
                                         <td class="text-end">
                                             <div class="btn-group" role="group">
-                                                <a href="pdf.php?id=<?php echo $ws['id']; ?>" 
-                                                   target="_blank" 
-                                                   class="btn btn-sm btn-outline-danger" 
+                                                <a href="pdf.php?id=<?php echo $ws['id']; ?>"
+                                                   target="_blank"
+                                                   class="btn btn-sm btn-outline-danger"
                                                    title="PDF letöltése">
                                                     <i class="bi bi-file-earmark-pdf"></i> PDF
                                                 </a>
                                                 <a href="#" class="btn btn-sm btn-outline-primary" title="Megtekintés">
                                                     <i class="bi bi-eye"></i>
                                                 </a>
-                                                <a href="#" class="btn btn-sm btn-outline-secondary" title="Szerkesztés">
+                                                <a href="edit.php?id=<?php echo $ws['id']; ?>" class="btn btn-sm btn-outline-secondary" title="Szerkesztés">
                                                     <i class="bi bi-pencil"></i>
                                                 </a>
-                                                <a href="#" class="btn btn-sm btn-outline-danger" title="Törlés" 
-                                                   onclick="return confirm('Biztosan törölni szeretnéd ezt a munkalapot?');">
+                                                <button type="button" class="btn btn-sm btn-outline-danger" title="Törlés"
+                                                        data-bs-toggle="modal" data-bs-target="#deleteModal<?php echo $ws['id']; ?>">
                                                     <i class="bi bi-trash"></i>
-                                                </a>
+                                                </button>
+                                            </div>
+
+                                            <!-- Törlés megerősítő modal -->
+                                            <div class="modal fade" id="deleteModal<?php echo $ws['id']; ?>" tabindex="-1" aria-labelledby="deleteModalLabel<?php echo $ws['id']; ?>" aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-centered">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header bg-danger text-white">
+                                                            <h5 class="modal-title" id="deleteModalLabel<?php echo $ws['id']; ?>">
+                                                                <i class="bi bi-exclamation-triangle"></i> Munkalap törlése
+                                                            </h5>
+                                                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <p class="mb-3">Biztosan törölni szeretné ezt a munkalapot?</p>
+                                                            <div class="alert alert-warning">
+                                                                <strong>Figyelem:</strong> Ez a művelet nem visszavonható! Az összes kapcsolódó anyag is törlődni fog.
+                                                            </div>
+                                                            <p class="mb-0"><strong>Munkalap száma:</strong> <?php echo escape($ws['worksheet_number']); ?></p>
+                                                            <p class="mb-0"><strong>Cég:</strong> <?php echo escape($ws['company_name'] ?? 'N/A'); ?></p>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                                                <i class="bi bi-x-circle"></i> Mégse
+                                                            </button>
+                                                            <form method="POST" action="delete.php" style="display: inline;">
+                                                                <input type="hidden" name="id" value="<?php echo $ws['id']; ?>">
+                                                                <button type="submit" name="delete" class="btn btn-danger">
+                                                                    <i class="bi bi-trash"></i> Törlés megerősítése
+                                                                </button>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </td>
                                     </tr>
