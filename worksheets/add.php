@@ -32,6 +32,13 @@ $data = [
 ];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['save'])) {
+    // CSRF token validáció
+    if (!isset($_POST['csrf_token']) || !validateCsrfToken($_POST['csrf_token'])) {
+        setFlashMessage('danger', 'Érvénytelen kérés! Token hibás.');
+        header('Location: list.php');
+        exit();
+    }
+
     // Adatok begyűjtése
     $data['company_id'] = trim($_POST['company_id'] ?? '');
     $data['work_date'] = trim($_POST['work_date'] ?? '');
@@ -205,6 +212,7 @@ $user = getCurrentUser();
                 <div class="card form-card">
                     <div class="card-body">
                         <form method="POST" action="" id="worksheetForm">
+                            <input type="hidden" name="csrf_token" value="<?php echo getCsrfToken(); ?>">
                             <div class="row">
                                 <div class="col-md-6 mb-3">
                                     <label for="company_id" class="form-label">

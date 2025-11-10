@@ -27,11 +27,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
             );
             
             if ($user && password_verify($password, $user['password'])) {
-                // Sikeres bejelentkezés
+                // Session fixation elleni védelem - új session ID generálása
+                // CWE-384 mitigation: új session azonosító generálása sikeres autentikáció után
+                session_regenerate_id(true);
+
+                // Sikeres bejelentkezés - session változók beállítása
                 $_SESSION['user_id'] = $user['id'];
                 $_SESSION['username'] = $user['username'];
                 $_SESSION['full_name'] = $user['full_name'];
                 $_SESSION['email'] = $user['email'];
+                $_SESSION['last_activity'] = time(); // Session timeout tracking
                 
                 setFlashMessage('success', 'Sikeres bejelentkezés! Üdvözöljük, ' . escape($user['full_name']) . '!');
                 redirect('dashboard.php');

@@ -11,6 +11,13 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     exit();
 }
 
+// CSRF token validáció
+if (!isset($_POST['csrf_token']) || !validateCsrfToken($_POST['csrf_token'])) {
+    setFlashMessage('danger', 'Érvénytelen törlési kérés! Token hibás.');
+    header('Location: list.php');
+    exit();
+}
+
 // ID ellenőrzés - SQL injection védelem
 if (!isset($_POST['id']) || !is_numeric($_POST['id'])) {
     setFlashMessage('danger', 'Érvénytelen munkalap azonosító!');

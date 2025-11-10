@@ -245,6 +245,7 @@ $user = getCurrentUser();
                                                                 <i class="bi bi-x-circle"></i> Mégse
                                                             </button>
                                                             <form method="POST" action="delete.php" style="display: inline;">
+                                                                <input type="hidden" name="csrf_token" value="<?php echo getCsrfToken(); ?>">
                                                                 <input type="hidden" name="id" value="<?php echo $ws['id']; ?>">
                                                                 <button type="submit" name="delete" class="btn btn-danger">
                                                                     <i class="bi bi-trash"></i> Törlés megerősítése
