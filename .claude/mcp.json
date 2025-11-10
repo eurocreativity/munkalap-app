@@ -1,0 +1,60 @@
+{
+  "mcpServers": {
+    "github": {
+      "command": "npx",
+      "args": ["@modelcontextprotocol/server-github"],
+      "env": {
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "${GITHUB_TOKEN}"
+      }
+    },
+    "playwright": {
+      "command": "npx",
+      "args": ["@modelcontextprotocol/server-playwright"],
+      "disabled": false
+    }
+  },
+  "agents": {
+    "backend": {
+      "name": "Backend Development Agent",
+      "description": "PHP backend fejlesztés, adatbázis integrációs és hibajavítás",
+      "capabilities": ["code-analysis", "bug-fixing", "database", "api-testing"],
+      "mcp_servers": ["github", "playwright"]
+    },
+    "frontend": {
+      "name": "Frontend Development Agent",
+      "description": "Frontend fejlesztés, UI/UX, interaktivitás",
+      "capabilities": ["ui-development", "css-styling", "javascript", "responsive-design"],
+      "mcp_servers": ["playwright"]
+    },
+    "testing": {
+      "name": "Testing Suite Agent",
+      "description": "Tesztelés, QA, regressziós tesztek",
+      "capabilities": ["unit-testing", "integration-testing", "e2e-testing", "qa"],
+      "mcp_servers": ["playwright"]
+    },
+    "security": {
+      "name": "Security Check Agent",
+      "description": "Biztonsági audit, sebezhetőség scanning",
+      "capabilities": ["security-audit", "vulnerability-scanning", "code-review"],
+      "mcp_servers": ["github"]
+    },
+    "bugfix": {
+      "name": "Bug Fixer Agent",
+      "description": "Hibafelderítés és javítás",
+      "capabilities": ["bug-triage", "debugging", "code-analysis", "testing"],
+      "mcp_servers": ["github", "playwright"]
+    },
+    "orchestrator": {
+      "name": "Development Orchestrator",
+      "description": "Agent koordináció és workflow menedzsment",
+      "capabilities": ["coordination", "task-scheduling", "reporting", "integration"],
+      "mcp_servers": ["github", "playwright"]
+    }
+  },
+  "workflow": {
+    "autoSync": true,
+    "gitIntegration": true,
+    "continuousMonitoring": true,
+    "reportGeneration": "daily"
+  }
+}

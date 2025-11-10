@@ -1,0 +1,93 @@
+# Development Agent Configuration
+
+agents:
+  backend-dev:
+    enabled: true
+    description: "PHP Backend fejlesztés"
+    auto_start: true
+    dependencies: []
+    mcp_servers:
+      - github
+      - playwright
+
+  frontend-dev:
+    enabled: true
+    description: "Frontend UI/UX fejlesztés"
+    auto_start: true
+    dependencies: []
+    mcp_servers:
+      - playwright
+
+  testing-suite:
+    enabled: true
+    description: "QA és tesztelési ügynök"
+    auto_start: true
+    dependencies:
+      - backend-dev
+      - frontend-dev
+    mcp_servers:
+      - playwright
+
+  security-check:
+    enabled: true
+    description: "Biztonsági audit"
+    auto_start: true
+    dependencies:
+      - backend-dev
+    mcp_servers:
+      - github
+
+  bug-fixer:
+    enabled: true
+    description: "Hiba felderítés és javítás"
+    auto_start: true
+    dependencies:
+      - backend-dev
+      - frontend-dev
+    mcp_servers:
+      - github
+      - playwright
+
+  dev-orchestrator:
+    enabled: true
+    description: "Agent koordináció és workflow"
+    auto_start: true
+    dependencies: []
+    mcp_servers:
+      - github
+      - playwright
+
+# Global settings
+global:
+  log_level: "info"
+  log_dir: ".claude/logs"
+  report_dir: ".claude/reports"
+  git_auto_commit: true
+  auto_sync: true
+  monitoring_interval: 300 # seconds
+
+# Workflow configuration
+workflow:
+  parallel_agents: false
+  sequential_order:
+    - backend-dev
+    - frontend-dev
+    - testing-suite
+    - security-check
+    - bug-fixer
+
+  continuous_monitoring: true
+  auto_recovery: true
+  restart_on_error: true
+
+# MCP Servers
+mcp_servers:
+  github:
+    enabled: true
+    endpoint: "local"
+
+  playwright:
+    enabled: true
+    endpoint: "local"
+    headless: true
+    timeout: 30000

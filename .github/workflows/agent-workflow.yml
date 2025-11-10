@@ -1,0 +1,76 @@
+name: Development Agent Workflow
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  security-check:
+    runs-on: ubuntu-latest
+    name: Security Audit
+    steps:
+      - uses: actions/checkout@v3
+      - name: Run security analysis
+        run: |
+          echo "Running security check agent..."
+          # Security scanning logic
+
+  backend-test:
+    runs-on: ubuntu-latest
+    name: Backend Testing
+    needs: security-check
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '7.4'
+          extensions: pdo, pdo_mysql
+      - name: Run backend tests
+        run: |
+          echo "Running backend tests..."
+          # Backend test logic
+
+  frontend-test:
+    runs-on: ubuntu-latest
+    name: Frontend Testing
+    needs: security-check
+    steps:
+      - uses: actions/checkout@v3
+      - name: Run frontend tests
+        run: |
+          echo "Running frontend tests..."
+          # Frontend test logic
+
+  integration-test:
+    runs-on: ubuntu-latest
+    name: Integration Testing
+    needs: [backend-test, frontend-test]
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup services
+        run: |
+          docker-compose up -d
+      - name: Run integration tests
+        run: |
+          echo "Running integration tests..."
+          # Integration test logic
+
+  quality-report:
+    runs-on: ubuntu-latest
+    name: Quality Report
+    needs: [integration-test]
+    if: always()
+    steps:
+      - uses: actions/checkout@v3
+      - name: Generate report
+        run: |
+          echo "Generating quality report..."
+          # Report generation logic
+      - name: Upload report
+        uses: actions/upload-artifact@v3
+        with:
+          name: quality-report
+          path: .claude/reports/
